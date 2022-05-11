@@ -1,0 +1,7 @@
+$ npm init
+$ npm run base3
+$ npm install colors
+$ npm install nodemon --save-dev
+$ npm uninstall nodemon
+$ npm install colors@1.0.0
+$ npm update

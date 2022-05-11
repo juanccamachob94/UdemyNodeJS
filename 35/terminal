@@ -1,0 +1,17 @@
+Configuración de Yargs
+
+
+const argv = require('yargs')
+  .option('b', {
+    alias: 'base',
+    type: 'number'
+  })
+  .check( (argv, options) => {
+    console.log('yargs', argv);
+    if(isNaN(argv.b))
+      throw 'La base debe ser un número';
+    return true;
+  })
+  .argv;
+
+  # option l para listar y es booleano, default: false para print

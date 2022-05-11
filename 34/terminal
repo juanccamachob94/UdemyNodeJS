@@ -1,0 +1,8 @@
+$ npm install yargs
+
+const argv = require('yargs').argv;
+argv.<terminal parameter>
+
+-l -> { l: true }
+
+

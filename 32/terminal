@@ -1,0 +1,9 @@
+$ node app --base=9 # app.js
+
+console.log(process.argv);
+const [ , , arg3 = 'base=5'] = process.argv;
+const [ , base] = arg3.split('=')
+
+yargs
+
+
