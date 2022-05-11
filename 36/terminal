@@ -1,0 +1,3 @@
+$ node app --help
+para las opciones de yargs, usar
+describe: '....'

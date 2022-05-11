@@ -3,13 +3,16 @@ module.exports = {
     .options({
       'b': {
         alias: 'base',
-        type: 'number'
+        type: 'number',
+        demandOption: true,
+        default: 12
       },
       'l': {
         alias: 'enabledLog',
         default: false,
         description: 'Terminal log enabled/disabled',
-        type: 'boolean'
+        type: 'boolean',
+        demandOption: true
       }
     })
     .check((argv, options) => {

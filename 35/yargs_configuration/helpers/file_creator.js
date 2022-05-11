@@ -1,7 +1,8 @@
 const fs = require('fs');
+const colors = require('colors/safe');
 
 module.exports = {
-  createFile: async (base, enabledLog) => {
+  createFile: async(base, enabledLog) => {
     const upperLimit = 15;
     const lowerLimit = 1;
     const fileName = `table-${base}.txt`;
@@ -12,7 +13,7 @@ module.exports = {
 
     if(enabledLog) {
       console.clear();
-      console.log(output);
+      console.log(colors.green(output));
     }
 
     try {
