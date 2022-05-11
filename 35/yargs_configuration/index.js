@@ -1,3 +1,5 @@
+const { argv } = require('./helpers/yargs_argv');
+const { createFile } = require('./helpers/file_creator')
 const testMethod = async(value) => {
   return value.toString();
 }
@@ -8,3 +10,4 @@ const validateThrowError = () => {
     .catch(err => console.log('catch error'));
 }
 
+createFile(argv.base, argv.enabledLog);

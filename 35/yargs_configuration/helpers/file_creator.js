@@ -1,17 +1,20 @@
 const fs = require('fs');
 
 module.exports = {
-  createFile: async (base = 5) => {
+  createFile: async (base, enabledLog) => {
     const upperLimit = 15;
     const lowerLimit = 1;
     const fileName = `table-${base}.txt`;
     let output = '';
 
-    for (let i = lowerLimit; i <= upperLimit; i++)
+    for(let i = lowerLimit; i <= upperLimit; i++)
       output += `${base} x ${i} = ${base * i}\n`;
 
-    console.clear();
-    console.log(output);
+    if(enabledLog) {
+      console.clear();
+      console.log(output);
+    }
+
     try {
       fs.writeFileSync(fileName, output);
       return fileName;
