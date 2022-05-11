@@ -22,5 +22,5 @@ const runFileCreation = () => {
   runSimplePromise(createFile(argv.base, argv.enabledLog));
 }
 
-console.log('Init');
+console.log('Init'.trap);
 runFileCreation();

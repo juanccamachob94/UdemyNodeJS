@@ -11,10 +11,8 @@ module.exports = {
     for(let i = lowerLimit; i <= upperLimit; i++)
       output += `${base} x ${i} = ${base * i}\n`;
 
-    if(enabledLog) {
-      console.clear();
+    if(enabledLog)
       console.log(colors.green(output));
-    }
 
     try {
       fs.writeFileSync(fileName, output);
