@@ -1,4 +1,3 @@
-const safeColors = require('colors/safe');
 const colors = require('colors');
 const { argv } = require('./helpers/yargs_argv');
 const { createFile } = require('./helpers/file_creator')
@@ -9,8 +8,8 @@ const testMethod = async(value) => {
 
 const runSimplePromise = async (simplePromise) => {
   simplePromise
-    .then(result => console.log(safeColors.blue(`result: ${result}`)))
-    .catch(err => console.log(safeColors.red(`catch error: ${err}`)));
+    .then(result => console.log(colors.blue(`result: ${result}`)))
+    .catch(err => console.log(colors.red(`catch error: ${err}`)));
 }
 
 // evidence try,catch(err) { throw err; } is not neccessary
