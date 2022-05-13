@@ -1,5 +1,5 @@
 module.exports = {
-  write: function() {
+  write: function() { // maybe arrow function is not valid here to use arguments
     args = Object.values(arguments);
     args.slice(0, -1).forEach(arg => {
       process.stdout.write(arg);

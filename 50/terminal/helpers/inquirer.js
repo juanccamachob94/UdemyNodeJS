@@ -22,7 +22,7 @@ const pauseInquirerQuestions = [
 
 module.exports = {
   listenInquirerMenu: async() => {
-    console.clear();
+    //console.clear();
     printMenuHeader();
     const { option } = await inquirer.prompt(menuInquirerQuestions);
     return option;

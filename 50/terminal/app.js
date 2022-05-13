@@ -5,7 +5,7 @@ const main = async() => {
   do {
     opt = await listenInquirerMenu();
     await listenPauseInquirerMenu();
-  } while(opt !== '0');
+  } while(opt !== 0);
 }
 
 main();

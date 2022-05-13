@@ -4,26 +4,32 @@ const { write } = require('./terminal');
 const separator = '=';
 const menuOptions = [
   {
-    name: 'Create task'
+    name: 'Create task',
+    value: 1
   },
   {
-    name: 'List tasks'
+    name: 'List tasks',
+    value: 2
   },
   {
-    name: 'List completed tasks'
+    name: 'List completed tasks',
+    value: 3
   },
   {
-    name: 'List pending tasks'
+    name: 'List pending tasks',
+    value: 4
   },
   {
-    name: 'Complete task(s)'
+    name: 'Complete task(s)',
+    value: 5
   },
   {
-    name: 'Remove task'
+    name: 'Remove task',
+    value: 6
   },
   {
     name: 'Exit',
-    value: 0
+    value: 0 // this option is invalid on the library
   }
 ];
 
@@ -36,11 +42,10 @@ let printMenuHeader = () => {
 }
 
 let buildMenuOptions = () => {
-  return menuOptions.map((option, index) => {
-    let optionName = option.name;
-    let optionValue = (option.value || index);
-    return `${optionValue.toString().green}. ${optionName}`;
-  });
+  return menuOptions.map((menuOption, index) => ({
+    name: `${menuOption.value.toString().green}. ${menuOption.name}`,
+    value: menuOption.value
+  }));
 }
 
 module.exports = {
