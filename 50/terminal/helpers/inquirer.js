@@ -32,5 +32,22 @@ module.exports = {
     const { option } = await inquirer.prompt(pauseInquirerQuestions);
     write('\n', false);
     return option;
+  },
+  readInputInquirerMenu: async(message) => {
+    const readInputInquirerQuestions = [
+      {
+        type: 'input',
+        name: 'description',
+        message,
+        validate(value) {
+          if(value.length === 0)
+            return 'Por favor ingrese un valor';
+          return true;
+        }
+      }
+    ];
+
+    const { description } = await inquirer.prompt(readInputInquirerQuestions);
+    return description;
   }
 }
