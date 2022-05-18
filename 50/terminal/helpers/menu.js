@@ -36,14 +36,14 @@ const menuOptions = [
 let printMenuHeader = () => {
   const numSeparators = 50;
   write(separator.repeat(numSeparators).green);
-  write('Select an option'.green);
+  write('Select an option'.white);
   write(separator.repeat(numSeparators).green);
   write('\n', false);
 }
 
 let buildMenuOptions = () => {
   return menuOptions.map((menuOption, index) => ({
-    name: `${menuOption.value.toString().green}. ${menuOption.name}`,
+    name: `${(menuOption.value.toString() + '.').green} ${menuOption.name}`,
     value: menuOption.value
   }));
 }

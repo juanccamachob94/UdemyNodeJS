@@ -1,3 +1,4 @@
+const { readDB, saveDB } = require('./helpers/file_saver');
 const { listenInquirerMenu, listenPauseInquirerMenu, readInputInquirerMenu } =
   require('./helpers/inquirer');
 const { write } = require('./helpers/terminal');
@@ -5,6 +6,11 @@ const Tasks = require('./models/tasks');
 
 const main = async() => {
   const tasks = new Tasks();
+  const tasksDB = readDB();
+  if(tasksDB)
+    tasks.loadsTasksfromArray(tasksDB);
+  // await listenPauseInquirerMenu();
+
   let opt = undefined;
   do {
     opt = await listenInquirerMenu();
@@ -16,6 +22,7 @@ const main = async() => {
         write(tasks._collection);
         break;
     }
+    saveDB(tasks.collectionArr);
     await listenPauseInquirerMenu();
   } while(opt !== 0);
 }
