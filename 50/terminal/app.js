@@ -9,7 +9,6 @@ const main = async() => {
   const tasksDB = readDB();
   if(tasksDB)
     tasks.loadsTasksfromArray(tasksDB);
-  // await listenPauseInquirerMenu();
 
   let opt = undefined;
   do {
