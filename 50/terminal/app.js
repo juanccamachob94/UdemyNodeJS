@@ -18,10 +18,10 @@ const main = async() => {
         tasks.createTask(await readInputInquirerMenu());
         break;
       case 2:
-        write(tasks._collection);
+        tasks.printList();
         break;
     }
-    saveDB(tasks.collectionArr);
+    saveDB(tasks.list);
     await listenPauseInquirerMenu();
   } while(opt !== 0);
 }
