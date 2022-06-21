@@ -14,12 +14,20 @@ class Tasks {
     this._dictionary[task.id] = task;
   }
 
-  printList() {
+  printList(expectedStatus = undefined) {
     write('\n', false);
-    this.list.forEach((task, index) => {
-      const taskIndex = `${index + 1}`.green;
-      const status = capitalize(task.status)[task.isCompleted() ? 'green' : 'red'];
-      write(`${taskIndex}. ${task.description} :: ${status}`);
+    let index = 1;
+    this.list.forEach((task) => {
+      const buildComplement = (expectedStatus, currentTask) => {
+        if (expectedStatus === Task.statuses.completed)
+          return currentTask.completedAt;
+        return capitalize(currentTask.status)[currentTask.isCompleted() ? 'green' : 'red'];
+      }
+      if (expectedStatus && expectedStatus !== task.status)
+        return;
+      const taskIndex = `${index++}`.green;
+      const complement = buildComplement(expectedStatus, task);
+      write(`${taskIndex}. ${task.description} :: ${complement}`);
     });
     write('\n', false);
   }
