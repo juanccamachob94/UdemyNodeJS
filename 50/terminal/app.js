@@ -4,7 +4,8 @@ const {
   selectTaskItemToDelete,
   listenInquirerMenu,
   listenPauseInquirerMenu,
-  readInputInquirerMenu
+  readInputInquirerMenu,
+  toTasksCheckLists
 } = require('./helpers/inquirer');
 const { write } = require('./helpers/terminal');
 const Tasks = require('./models/tasks');
@@ -31,6 +32,9 @@ const main = async() => {
         break;
       case 4:
         tasks.printList(Task.statuses.pending);
+        break;
+      case 5:
+        tasks.toggleCompletedTasks(await toTasksCheckLists(tasks.list));
         break;
       case 6:
         const taskId = await selectTaskItemToDelete(tasks.list);

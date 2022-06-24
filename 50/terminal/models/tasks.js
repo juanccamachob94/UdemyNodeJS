@@ -25,7 +25,7 @@ class Tasks {
     this.list.forEach((task) => {
       const buildComplement = (expectedStatus, currentTask) => {
         if (expectedStatus === Task.statuses.completed)
-          return currentTask.completedAt;
+          return currentTask.completedAt.green;
         return capitalize(currentTask.status)[currentTask.isCompleted() ? 'green' : 'red'];
       }
       if (expectedStatus && expectedStatus !== task.status)
@@ -35,6 +35,18 @@ class Tasks {
       write(`${taskIndex}. ${task.description} :: ${complement}`);
     });
     write('\n', false);
+  }
+
+  toggleCompletedTasks(ids = []) {
+    ids.forEach(id => {
+      const task = this._dictionary[id];
+      if(!task.isCompleted())
+        task.completedAt = new Date().toISOString();
+    });
+    this.list.forEach(task => {
+      if(!ids.includes(task.id))
+        this._dictionary[task.id].completedAt = null;
+    });
   }
 
   /**

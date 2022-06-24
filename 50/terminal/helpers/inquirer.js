@@ -81,5 +81,24 @@ module.exports = {
       }
     ];
     return (await inquirer.prompt(questions))[confirmationKey];
+  },
+  toTasksCheckLists: async(tasksList = []) => {
+    const taskIdKey = 'taskId';
+    const readInputInquirerQuestions = [
+      {
+        type: 'checkbox',
+        name: taskIdKey,
+        message: 'Selected tasks',
+        choices: tasksList.map((task, iterator) => {
+          const itemId = `${iterator + 1}.`.green;
+          return {
+            value: task.id,
+            name: `${itemId} ${task.description}`,
+            checked: task.isCompleted()
+          }
+        })
+      }
+    ];
+    return (await inquirer.prompt(readInputInquirerQuestions))[taskIdKey];    
   }
 }
