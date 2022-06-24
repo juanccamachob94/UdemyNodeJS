@@ -9,8 +9,13 @@ class Tasks {
     this._dictionary = {};
   }
 
+  deleteTask(id) {
+    if(this._dictionary[id])
+      delete this._dictionary[id];
+  }
+
   createTask(description = '') {
-    const task = new Task(description);
+    const task = new Task(undefined, description);
     this._dictionary[task.id] = task;
   }
 

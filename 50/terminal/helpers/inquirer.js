@@ -25,8 +25,7 @@ module.exports = {
   listenInquirerMenu: async() => {
     console.clear();
     printMenuHeader();
-    const { option } = await inquirer.prompt(menuInquirerQuestions);
-    return option;
+    return (await inquirer.prompt(menuInquirerQuestions))['option'];
   },
   listenPauseInquirerMenu: async() => {
     const { option } = await inquirer.prompt(pauseInquirerQuestions);
@@ -34,10 +33,11 @@ module.exports = {
     return option;
   },
   readInputInquirerMenu: async(message) => {
+    const descriptionKey = 'description';
     const readInputInquirerQuestions = [
       {
         type: 'input',
-        name: 'description',
+        name: descriptionKey,
         message,
         validate(value) {
           if(value.length === 0)
@@ -46,8 +46,40 @@ module.exports = {
         }
       }
     ];
-
-    const { description } = await inquirer.prompt(readInputInquirerQuestions);
-    return description;
+    return (await inquirer.prompt(readInputInquirerQuestions))[descriptionKey];
+  },
+  selectTaskItemToDelete: async(tasksList = []) => {
+    const taskIdKey = 'taskId';
+    choices = tasksList.map((task, iterator) => {
+      const itemId = `${iterator + 1}.`.green;
+      return {
+        value: task.id,
+        name: `${itemId} ${task.description}`
+      }
+    });
+    choices.push({
+      value: undefined,
+      name: `${'0.'.green} Cancel`
+    });
+    const readInputInquirerQuestions = [
+      {
+        type: 'list',
+        name: taskIdKey,
+        message: 'Delete',
+        choices
+      }
+    ];
+    return (await inquirer.prompt(readInputInquirerQuestions))[taskIdKey];
+  },
+  confirm: async (message) => {
+    const confirmationKey = 'confirmed';
+    const questions = [
+      {
+        type: 'confirm',
+        name: confirmationKey,
+        message
+      }
+    ];
+    return (await inquirer.prompt(questions))[confirmationKey];
   }
 }
