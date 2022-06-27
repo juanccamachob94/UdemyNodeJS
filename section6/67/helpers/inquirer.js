@@ -1,7 +1,6 @@
 require('colors');
 const inquirer = require('inquirer');
 const { printMenuHeader, buildMenuOptions } = require('./../helpers/menu');
-const { write } = require('./../helpers/terminal');
 
 const menuInquirerQuestions = [
   {
@@ -22,14 +21,14 @@ const pauseInquirerQuestions = [
 
 module.exports = {
   listenInquirerMenu: async() => {
-    //console.clear();
+    console.clear();
     printMenuHeader();
     return (await inquirer.prompt(menuInquirerQuestions))['option'];
   },
   listenPauseInquirerMenu: async() => {
     return (await inquirer.prompt(pauseInquirerQuestions)); // the value is unneccesary
   },
-  readInputInquirerMenu: async(message) => {
+  readInquirerInput: async(message) => {
     const descriptionKey = 'description';
     const readInputInquirerQuestions = [
       {
