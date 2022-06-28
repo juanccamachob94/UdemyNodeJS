@@ -1,6 +1,7 @@
 require('colors');
 const inquirer = require('inquirer');
 const { printMenuHeader, buildMenuOptions } = require('./../helpers/menu');
+const { write } = require('./../helpers/terminal');
 
 const menuInquirerQuestions = [
   {
@@ -21,7 +22,7 @@ const pauseInquirerQuestions = [
 
 module.exports = {
   listenInquirerMenu: async() => {
-    console.clear();
+    //console.clear();
     printMenuHeader();
     return (await inquirer.prompt(menuInquirerQuestions))['option'];
   },
@@ -42,15 +43,16 @@ module.exports = {
         }
       }
     ];
-    return (await inquirer.prompt(readInputInquirerQuestions))[descriptionKey];
+    const f = (await inquirer.prompt(readInputInquirerQuestions))[descriptionKey];
+    return f;
   },
-  selectTaskItemToDelete: async(tasksList = []) => {
-    const taskIdKey = 'taskId';
-    choices = tasksList.map((task, iterator) => {
+  selectPlaceId: async(places = []) => {
+    const taskIdKey = 'placeId';
+    choices = places.map((place, iterator) => {
       const itemId = `${iterator + 1}.`.green;
       return {
-        value: task.id,
-        name: `${itemId} ${task.description}`
+        value: place.id,
+        name: `${itemId} ${place.place_name}`
       }
     });
     choices.push({
@@ -61,7 +63,7 @@ module.exports = {
       {
         type: 'list',
         name: taskIdKey,
-        message: 'Delete',
+        message: 'Select place:',
         choices
       }
     ];
@@ -95,6 +97,6 @@ module.exports = {
         })
       }
     ];
-    return (await inquirer.prompt(readInputInquirerQuestions))[taskIdKey];    
+    return (await inquirer.prompt(readInputInquirerQuestions))[taskIdKey];
   }
 }

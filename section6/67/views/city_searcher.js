@@ -1,41 +1,28 @@
 require('colors')
 const { write } = require('./../helpers/terminal');
-const { readInquirerInput } = require('./../helpers/inquirer');
+const { readInquirerInput, selectPlaceId } = require('./../helpers/inquirer');
+const { listPlaces } = require('./../helpers/inquirer');
 const Search = require('./../models/search');
 
 class CitySearcher {
   static async process() {
-    showMessage();
-    searchPlaces();
-    selectPlace();
-    loadWeither();
-    showResults();
+    const placeName = await readInquirerInput('City:');
+    const places = await Search.loadMatchingPlaces(placeName);
+    const selectedPlaceId = await selectPlaceId(places);
+    const selectedPlace = places.find(place => place.id == selectedPlaceId);
+    const weatherPlaceData = await Search.loadWeatherData(selectedPlace.lng, selectedPlace.lat);
+    CitySearcher.showResults({ ...selectedPlace, ...weatherPlaceData });
   }
 
-  static async showMessage() {
-    await Search.findCity(await readInquirerInput('City:'));
-  }
-
-  static async searchPlaces() {
-
-  }
-
-  static async selectPlace() {
-
-  }
-
-  static async loadWeither() {
-
-  }
-
-  static async showResults(cityJsonResult) {
-    write('City information:'.green);
-    write('City:', cityJsonResult.city);
-    write('Lat:', cityJsonResult.lat);
-    write('Lng:', cityJsonResult.lng);
-    write('Temp:', cityJsonResult.temperature);
-    write('Min:', cityJsonResult.min);
-    write('Max:', cityJsonResult.max);
+  static showResults(cityJsonResult) {
+    write('Place information:'.green);
+    write('Place:'.green, cityJsonResult.place_name);
+    write('Lat:'.green, cityJsonResult.lat);
+    write('Lng:'.green, cityJsonResult.lng);
+    write('Temp:'.green.green, cityJsonResult.temp);
+    write('Min:'.green, cityJsonResult.temp_min);
+    write('Max:'.green, cityJsonResult.temp_max);
+    write('Temp description:'.green, cityJsonResult.temp_description)
   }
 }
 
