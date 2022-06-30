@@ -1,5 +1,4 @@
 require('colors');
-const { write } = require('./terminal');
 
 const separator = '=';
 const menuOptions = [
@@ -19,10 +18,10 @@ const menuOptions = [
 
 let printMenuHeader = () => {
   const numSeparators = 50;
-  write(separator.repeat(numSeparators).green);
-  write('Select an option'.white);
-  write(separator.repeat(numSeparators).green);
-  write('\n', false);
+  console.log(separator.repeat(numSeparators).green);
+  console.log('Select an option'.white);
+  console.log(separator.repeat(numSeparators).green);
+  console.log();
 }
 
 let buildMenuOptions = () => {

@@ -1,9 +1,14 @@
 const axios = require('axios');
-const { write } = require('./../helpers/terminal');
 
 class Search {
   static get history() {
-    return ['San José'];
+    if(this.currentHistory == undefined)
+      this.currentHistory = [];
+    return this.currentHistory;
+  }
+
+  static set history(currentHistory) {
+    this.currentHistory = currentHistory;
   }
 
   static get mapBoxParams() {
@@ -59,6 +64,13 @@ class Search {
     } catch(err) {
       return {};
     }
+  }
+
+  static addHistoryItem(place = '') {
+    let history = Search.history;
+    history.unshift(place);
+    Search.history = history;
+    console.log(Search.history);
   }
 }
 

@@ -1,6 +1,5 @@
 require('dotenv').config();
 const { listenInquirerMenu, listenPauseInquirerMenu } = require('./helpers/inquirer');
-const { write } = require('./helpers/terminal');
 const Search = require('./models/search');
 const CitySearcher = require('./views/city_searcher');
 
@@ -13,7 +12,7 @@ const main = async () => {
         await CitySearcher.process();
         break;
       case 2:
-        write('This is the history');
+        console.log('This is the history');
         break;
     }
     await listenPauseInquirerMenu();
