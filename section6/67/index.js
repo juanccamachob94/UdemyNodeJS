@@ -4,6 +4,7 @@ const Search = require('./models/search');
 const CitySearcher = require('./views/city_searcher');
 
 const main = async () => {
+  Search.readOnDB();
   let opt = undefined;
   do {
     opt = await listenInquirerMenu();
@@ -13,7 +14,7 @@ const main = async () => {
           continue; // skip "Press enter to continue"
         break;
       case 2:
-        Search.history.forEach((place, index) => {
+        Search.capitalizedHistory.forEach((place, index) => {
           const validIndex = `${index + 1}`.green;
           console.log(`${validIndex}. ${place}`);
         });

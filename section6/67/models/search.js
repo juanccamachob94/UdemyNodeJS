@@ -16,6 +16,13 @@ class Search {
     return './db/database.json';
   }
 
+  static get capitalizedHistory() {
+    return this.history.map(place => {
+      let words = place.split(' ');
+      return words.map(p => p[0].toUpperCase() + p.substring(1)).join(' ');
+    })
+  }
+
   static get mapBoxParams() {
     return {
       'access_token': process.env.MAPBOX_TOKEN,
@@ -73,9 +80,10 @@ class Search {
 
   static addHistoryItem(place = '') {
     const sanitizedPlace = place.toLocaleLowerCase();
-    if(Search.history.includes(sanitizedPlace))
+    if(this.history.includes(sanitizedPlace))
       return;
-    Search.history.unshift(sanitizedPlace);
+    this.history = this.history.splice(0, 5);
+    this.history.unshift(sanitizedPlace);
     this.saveOnDB();
   }
 
@@ -84,7 +92,9 @@ class Search {
   }
 
   static readOnDB() {
-
+    if(!fs.existsSync(this.dbPath))
+      return;
+    this.history = JSON.parse(fs.readFileSync(this.dbPath, { encoding: 'utf-8' })).history;
   }
 }
 
