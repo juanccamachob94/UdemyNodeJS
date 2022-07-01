@@ -9,10 +9,15 @@ const main = async () => {
     opt = await listenInquirerMenu();
     switch (opt) {
       case 1:
-        await CitySearcher.process();
+        if(!await CitySearcher.process())
+          continue; // skip "Press enter to continue"
         break;
       case 2:
-        console.log('This is the history');
+        Search.history.forEach((place, index) => {
+          const validIndex = `${index + 1}`.green;
+          console.log(`${validIndex}. ${place}`);
+        });
+
         break;
     }
     await listenPauseInquirerMenu();

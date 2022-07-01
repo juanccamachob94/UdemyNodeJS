@@ -8,10 +8,13 @@ class CitySearcher {
     const placeName = await readInquirerInput('City:');
     const places = await Search.loadMatchingPlaces(placeName);
     const selectedPlaceId = await selectPlaceId(places);
+    if(selectedPlaceId == undefined)
+      return false;
     const selectedPlace = places.find(place => place.id == selectedPlaceId);
     const weatherPlaceData = await Search.loadWeatherData(selectedPlace.lng, selectedPlace.lat);
     Search.addHistoryItem(selectedPlace.place_name);
     CitySearcher.showResults({ ...selectedPlace, ...weatherPlaceData });
+    return true;
   }
 
   static showResults(cityJsonResult) {

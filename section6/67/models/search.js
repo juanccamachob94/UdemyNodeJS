@@ -1,4 +1,5 @@
 const axios = require('axios');
+const fs = require('fs');
 
 class Search {
   static get history() {
@@ -9,6 +10,10 @@ class Search {
 
   static set history(currentHistory) {
     this.currentHistory = currentHistory;
+  }
+
+  static get dbPath() {
+    return './db/database.json';
   }
 
   static get mapBoxParams() {
@@ -67,10 +72,19 @@ class Search {
   }
 
   static addHistoryItem(place = '') {
-    let history = Search.history;
-    history.unshift(place);
-    Search.history = history;
-    console.log(Search.history);
+    const sanitizedPlace = place.toLocaleLowerCase();
+    if(Search.history.includes(sanitizedPlace))
+      return;
+    Search.history.unshift(sanitizedPlace);
+    this.saveOnDB();
+  }
+
+  static saveOnDB() {
+    fs.writeFileSync(this.dbPath, JSON.stringify({ history:  this.history }));
+  }
+
+  static readOnDB() {
+
   }
 }
 
